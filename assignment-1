@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font-Awesome-Icons-CSS -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+
+    <!-- Styling the form  -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
+
+        . {
+            box-sizing: border-box;
+        }
+
+         body {
+            /* background-image: url(bg.jpg);
+            background-position: center;
+            background-size: cover; */
+            font-family: 'Noto Sans SC', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            /* border-radius: 5px;
+            box-shadow: 0 2px 5x rgba(0, 0, 0, 0.3); */
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .header {
+            padding: 40px 100px;
+
+        }
+
+        .header h2 {
+            margin: 1;
+        }
+
+        .form {
+            padding: 30px 40px;
+        }
+
+        .form-control {
+            margin-bottom: 5px;
+            padding-bottom: 10px;
+            position: relative;
+        } 
+
+         /* .form-control label {
+            /* display: inline-block; */
+            /* margin-bottom: 5px; */
+        } */
+
+        .form-control input {
+            display: block;
+            border: 2px solid #141313;
+            border-radius: 4px;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .form-control i {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            visibility: hidden;
+        }
+
+        .form-control small {
+            position: absolute;
+            visibility: hidden;
+            bottom: 1;
+            left: 1;
+        }
+
+        #submit {
+            /* background-color: dodgerblue;
+            border: 2px solid dodgerblue; */
+            border-radius: 4px;
+            color: rgb(15, 15, 15);
+            display: block;
+            padding: 5px;
+            font-size: 16px;
+            font-family: inherit;
+            width: 110%;
+        }
+
+        .form-control.success input {
+            border-color: #2ecc71;
+        }
+
+        .form-control.error input {
+            border-color: #e74c3c;
+        }
+
+        .form-control.success i.fa-check-circle {
+            color: #2ecc71;
+            visibility: visible;
+        }
+
+        .form-control.error i.fa-exclamation-circle {
+            color: #e74c3c;
+            visibility: visible;
+        }
+
+        .form-control.error small {
+            visibility: visible;
+            color: #e74c3c;
+        }
+
+        .form-control.success small {
+            visibility: hidden;
+            color: #2ecc71;
+        }
+    </style>
+    <title>Js validation!</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Create Account</h2>
+        </div>
+        <form name="frm" id="form">
+            <div class="form-control">
+                <label>Name</label>
+                <input type="text" placeholder="your name..." id="name">
+               
+                <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+            <br>
+            <div class="form-control">
+                <label>Age</label>
+                <input type="number" placeholder="your age..." id="emailid">
+               
+                <small id="emailHelp" class="form-text text-muted"> </small>
+            </div>
+
+            <br>
+            <div class="form-control">
+                <label>Gender</label>
+                <input type="radio"  id="gender" required>Male
+                <input type="radio" id="gender"required>Female
+                <input type="radio"  id="gender"required>Others
+               
+                <small id="emailHelp" class="form-text text-muted"> </small>
+            </div>
+
+            <br>
+            <div class="form-control">
+                <label>Qualification</label>
+                    <!-- <input type="hidden" placeholder="your password..." id="Qualification">  -->
+                <select>
+                     <!-- <option  name="" id="" selected disabled>Choose your option</option> -->
+                    <option  name="B.tech" id="Qualification" value="B.tech" selected>B.TECH</option>
+                    <option  name="" id="Qualification"value="M.tech">M.TECH</option>
+                    <option  name="" id="Qualification"value="BCA">BCA</option>
+                    <option  name="" id="Qualification"value="MCA">MCA</option>
+                </select>
+                
+                <small id="emailHelp" class="form-text text-muted"> </small>
+            </div>
+
+            <br>
+            <div class="form-control">
+                <label>About yourself</label>
+                <textarea type="text" placeholder="about your self..." id="about"></textarea>
+               
+                <small id="emailHelp" class="form-text text-muted"> </small>
+            </div>
+
+            <div class="form-control">
+                <label>Upload your resume</label>
+                <input type="file"  id="file" onchange="return fileValidation()">
+               
+                <small id="emailHelp" class="form-text text-muted"> </small>
+            </div>
+
+
+
+            <br>
+            <button type="submit" id="submit" name="submit">Register</button>
+
+        </form>
+    </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+</body>
+<!-- Implemented JavaScript -->
+<script>
+    const form = document.getElementById('form');
+    const name = document.getElementById('name');
+    const emailid = document.getElementById('emailid');
+    const gender = document.getElementById('gender');
+    const Qualification = document.getElementById('Qualification');
+    const file = document.getElementById('file');
+    const about = document.getElementById('about');
+    
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        checkInputs();
+
+    });
+
+    function checkInputs() {
+        const nameValue = name.value.trim();
+        const emailidValue = emailid.value.trim();
+        const genderValue = gender.value.trim();
+        const QualificationValue = Qualification.value.trim();
+        const fileValue = file.value.trim();
+        const aboutValue = about.value.trim();
+        // const password2Value = password2.value.trim();
+
+        if (nameValue === '') {
+
+            setErrorFor(name, 'All field must be filled');
+
+        }
+        else {
+            setSuccessFor(name);
+        }
+
+
+        if (emailidValue === '') {
+
+            setErrorFor(emailid, 'All field must be filled');
+
+        }
+        
+        else {
+            setSuccessFor(emailid);
+        }
+
+        if (genderValue === '') {
+
+            setErrorFor(gender,'All field must be filled');
+
+        }
+        // else if(!isPhone(phoneValue))
+        // {
+        //     setErrorFor(phone, 'Not a valid Phone');
+        // }
+        // else {
+        //     setSuccessFor(phone);
+        // }
+
+        if (fileValue === '') {
+
+            setErrorFor(file, 'All field must be filled');
+
+        }
+        if(QualificationValue=='')
+        {
+            setErrorFor(Qualification, 'All field must be filled');
+        }
+
+        else
+        {
+            setSuccessFor(Qualification);
+        }
+        if(aboutValue=='')
+        {
+            setErrorFor(about, 'All field must be filled');
+        }
+        
+        else {
+            setSuccessFor(about);
+        }
+
+        if (password2Value === '') {
+
+            setErrorFor(password2, 'All field must be filled');
+
+        }
+        else if(password1Value != password2Value)
+        {
+            setErrorFor(password2, 'Two passwords are not matching');
+        }
+        else {
+            setSuccessFor(password2);
+        }
+
+        function setErrorFor(input, message) 
+        {
+            const formControl = input.parentElement;
+            const small = formControl.querySelector('small');
+            small.innerText = message;
+            formControl.className = 'form-control error';
+        }
+
+        function setSuccessFor(input) 
+        {
+            const formControl = input.parentElement;
+            formControl.className = "form-control success";
+        }
+
+        function isEmail(emailid)
+        {
+            return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailid);
+        }
+
+        function isPhone(phone)
+        {
+            return /^\d{10}$/.test(phone);
+        }
+        function isPassword(phone)
+        {
+            return /^[A-Za-z]\w{7,14}$/.test(phone);
+        }
+
+        function fileValidation() { 
+            var fileInput =  
+                document.getElementById('file'); 
+              
+            var filePath = fileInput.value; 
+          
+            // Allowing file type 
+            var allowedExtensions =  
+                    /(\.doc|\.pdf|\.docx)$/i; 
+              
+            if (!allowedExtensions.exec(filePath)) { 
+                setErrorFor(file, 'Not a valid file format'); 
+                fileInput.value = ''; 
+                return false; 
+            }  
+            else  
+            { 
+              
+               alert('file uploaded');
+            } 
+        }
+    }
+
+
+
+</script>
+
+</html>
